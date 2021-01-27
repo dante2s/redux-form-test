@@ -1,20 +1,41 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../validators/validators";
+import {maxLengthCreator, requiredField, validEmail, validName, validPhone} from "../validators/validators";
 import {renderField} from "./FormControls";
 
 const maxLength30 = maxLengthCreator(30);
 
 let RegisterForm = (props) => {
-    const { handleSubmit, submitting } = props;
+    const { handleSubmit, submitting, pristine, invalid  } = props;
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <Field placeholder={"Введите ваше имя"} type={"text"} component={renderField} name={"name"} validate={[requiredField, maxLength30]}/>
-                <Field type={"email"} placeholder={"Введите ваш email"} component={renderField} name={"email"}/>
-                <Field placeholder={"Введите номер телефона"} type="text" component={renderField} name={"phone"}/>
-                <Field type={"checkbox"} component={renderField} name={"accept"}/>
-                <button disabled={submitting}>register</button>
+                <Field label={"Имя"}
+                       placeholder={"Введите ваше имя"}
+                       type={"text"}
+                       component={renderField}
+                       name={"name"}
+                       validate={[requiredField, maxLength30, validName]}/>
+
+                <Field label={"Email"}
+                       placeholder={"Введите ваш email"}
+                       type={"email"}
+                       component={renderField}
+                       name={"email"}
+                       validate={[requiredField, validEmail]}/>
+
+                <Field label={"Телефон"}
+                       placeholder={"Введите номер телефона"}
+                       type="text"
+                       component={renderField}
+                       name={"phone"}
+                       validate={[requiredField, validPhone]}/>
+
+                <Field type={"checkbox"}
+                       component={renderField}
+                       name={"accept"}
+                       validate={requiredField}/>
+                <button disabled={pristine || invalid || submitting}>register</button>
             </form>
         </div>
     )
