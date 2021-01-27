@@ -1,9 +1,14 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField, validEmail, validName, validPhone} from "../validators/validators";
+import Validators from "../validators/validators";
 import {renderField} from "./FormControls";
 
-const maxLength30 = maxLengthCreator(30);
+let ValidatorObject = new Validators();
+const maxLength30 = ValidatorObject.maxLengthCreator(30);
+const requiredField = ValidatorObject.requiredField;
+const validEmail = ValidatorObject.validEmail;
+const validName = ValidatorObject.validName;
+const validPhone = ValidatorObject.validPhone;
 
 let RegisterForm = (props) => {
     const { handleSubmit, submitting, pristine, invalid  } = props;
