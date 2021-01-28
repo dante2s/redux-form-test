@@ -1,22 +1,22 @@
 import React from 'react';
 import Select from 'react-select'
-export const renderField = ({input, label, placeholder, type, name, meta: {touched, error}}) => (
+export const renderField = ({input, label, placeholder, type, meta: {touched, error}}) => (
     <div>
         <label>{label}</label>
         <div>
-            <input {...input} placeholder={placeholder} type={type} name={name}/>
+            <input {...input} placeholder={placeholder} type={type} />
             {touched && (error && <span>{error}</span>)}
         </div>
     </div>
 );
 export const renderCheckbox = ({input, label, type, name, meta: {touched, error}}) => (
         <div>
-            <label><input {...input} type={type} name={name}/>{label}</label>
+            <label><input {...input} type={type}/>{label}</label>
             {touched && (error && <span>{error}</span>)}
         </div>
 );
 export const renderSelect = props => {
-    const { input, options, label, name, placeholder, className, classNamePrefix} = props;
+    const { input, options, label, placeholder, className, classNamePrefix} = props;
 
     const handleBlur = () => {
         setTimeout(() => {
@@ -24,7 +24,6 @@ export const renderSelect = props => {
             input.onBlur(input.value);
         }, 1);
     };
-    console.log(input);
     return (
         <div>
             <label>{label}</label>
@@ -35,7 +34,6 @@ export const renderSelect = props => {
                     onBlur={handleBlur}
                     placeholder={placeholder}
                     options={options}
-                    name={name}
                     className={className}
                     classNamePrefix={classNamePrefix}
                 />
