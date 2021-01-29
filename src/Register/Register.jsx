@@ -1,7 +1,8 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import Validators from "../validators/validators";
-import {renderCheckbox, renderField, renderSelect} from "./FormControls";
+import {renderCheckbox, renderField, renderSelect} from "../FormControls/FormControls";
+import classes from "./Register.module.css";
 
 let ValidatorObject = new Validators();
 const maxLength30 = ValidatorObject.maxLengthCreator(30);
@@ -9,6 +10,7 @@ const requiredField = ValidatorObject.requiredField;
 const validEmail = ValidatorObject.validEmail;
 const validName = ValidatorObject.validName;
 const validPhone = ValidatorObject.validPhone;
+//по-хорошему, эти данные должны попадать сюда через props
 const userOptions = [
     {
         label: 'Русский',
@@ -31,8 +33,12 @@ const userOptions = [
 let RegisterForm = (props) => {
     const { handleSubmit, submitting, pristine, invalid  } = props;
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className={classes.form__container}>
+            <div className={classes.form__header}>
+                <span>Регистрация</span>
+                Уже есть аккаунт? <a href="#">Войти</a>
+            </div>
+            <form className={classes.form__block} onSubmit={handleSubmit}>
                 <Field label={"Имя"}
                        placeholder={"Введите ваше имя"}
                        type={"text"}
@@ -57,12 +63,6 @@ let RegisterForm = (props) => {
                        validate={[requiredField, validPhone]}
                 />
 
-                <Field type={"checkbox"}
-                       component={renderCheckbox}
-                       name={"accept"}
-                       validate={requiredField}
-                        label={"Принимаю условия использования"}
-                />
                 <Field name={"currentLanguage"}
                        component={renderSelect}
                        options={userOptions}
@@ -71,7 +71,14 @@ let RegisterForm = (props) => {
                        className={'selectContainer'}
                        classNamePrefix={'react-select'}
                 />
-                <button disabled={pristine || invalid || submitting}>Зарегистрироваться</button>
+                <Field type={"checkbox"}
+                       id={"accept"}
+                       component={renderCheckbox}
+                       name={"accept"}
+                       validate={requiredField}
+                       label={["Принимаю ", <a href='#'>условия</a> ," использования"]}
+                />
+                <button className={classes.form__register} disabled={pristine || invalid || submitting}>Зарегистрироваться</button>
             </form>
         </div>
     )
@@ -84,7 +91,13 @@ const ReduxRegisterForm = reduxForm({
 
 const Register = () => {
     const onSubmit = (formData) => {
+        //форма ничего не отправляет. для наглядности сделал alert
+        let text = 'Язык:' + formData.currentLanguage.label + '\n' +
+            'E-mail:' + formData.email + '\n' +
+            'Имя:' + formData.name + '\n' +
+            'Телефон:' + formData.phone;
         console.log(formData);
+        alert(text);
     };
         return (
             <div>

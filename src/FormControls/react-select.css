@@ -1,0 +1,33 @@
+/*для полной кастомизации react-select*/
+.react-select__control{
+    border: 1px solid #DBE2EA !important;
+    box-shadow: 0px 4px 8px rgba(44, 39, 56, 0.04);
+    border-radius: 6px !important;
+}
+.react-select__control--is-focused{
+    border: 1px solid #0880AE !important;
+    box-shadow: 0 0 0 1px #0880AE !important;
+}
+.react-select__value-container{
+    padding: 9px 14px !important;
+}
+.react-select__placeholder{
+    color: #7C9CBF !important;
+}
+.react-select__indicator-separator{
+    display: none;
+}
+.react-select__indicator{
+    color: #0880AE !important;
+    padding: 10px 15px !important;
+}
+.react-select__menu{
+    text-align: left;
+    color: #756F86;
+}
+.react-select__option:hover,
+.react-select__option--is-selected,
+.react-select__option--is-focused{
+    background: #EBF4F8 !important;
+    color: #756F86 !important;
+}
